@@ -1,16 +1,19 @@
 import PostCard from "@/components/PostCard";
-import { headers } from "next/headers";
+import { withAuth, WithAuthProps } from "@/lib/WithAuth";
 
-export default async function PostsPage() {
-  // Fetch posts from the API and limit to 20
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const posts: { id: number; title: string; body: string }[] =
-    await response.json();
-  const limitedPosts = posts.slice(0, 20);
+type Post = {
+  id: string;
+  userId: string;
+  title: string;
+  description: string;
+  frontImage: string;
+  createdAt: string;
+};
 
-  const headersList = await headers();
-  const userHeader = headersList.get("X-User");
-  const user = userHeader ? JSON.parse(userHeader) : null;
+async function PostsPage({ user }: WithAuthProps) {
+  const response = await fetch("http://localhost:8000/v1/posts");
+  const res = await response.json();
+  const posts = res.payload as Post[];
 
   return (
     <div className="container mx-auto p-6">
@@ -18,13 +21,18 @@ export default async function PostsPage() {
       <div className="flex flex-col items-center gap-4">
         {" "}
         {user && user.email}
-        {limitedPosts.map((post) => (
+        {posts.map((post: Post) => (
           <div className="w-full max-w-lg" key={post.id}>
-            {" "}
-            <PostCard title={post.title} body={post.body} />
+            <PostCard
+              title={post.title}
+              body={post.description}
+              createdAt={post.createdAt}
+            />
           </div>
         ))}
       </div>
     </div>
   );
 }
+
+export default withAuth(PostsPage);

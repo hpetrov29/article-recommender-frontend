@@ -1,10 +1,7 @@
-import { headers } from "next/headers";
+import { withAuth, WithAuthProps } from "@/lib/WithAuth";
 import { LoginForm } from "./LoginForm";
 
-export default async function Login() {
-  const headersList = await headers();
-  const userHeader = headersList.get("X-User");
-  const user = userHeader ? JSON.parse(userHeader) : null;
+async function Login({ user }: WithAuthProps) {
   return (
     <div>
       {user && user.email}
@@ -12,3 +9,5 @@ export default async function Login() {
     </div>
   );
 }
+
+export default withAuth(Login);
