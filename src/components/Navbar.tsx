@@ -46,7 +46,10 @@ async function Navbar() {
               >
                 {menuItems.map((menuItem, id) => {
                   return (
-                    <DropdownMenuItem className="flex cursor-pointer hover:bg-gray-100 px-3 py-2 group">
+                    <DropdownMenuItem
+                      className="flex cursor-pointer hover:bg-gray-100 px-3 py-2 group"
+                      key={id}
+                    >
                       <menuItem.icon className="w-5 h-5 text-gray-500 group-hover:text-black transition-colors duration-500 " />
                       <span className="text-gray-700 whitespace-nowrap ml-2 group-hover:text-black transition-colors duration-500">
                         {menuItem.label}

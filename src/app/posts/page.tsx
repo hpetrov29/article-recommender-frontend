@@ -22,8 +22,9 @@ async function PostsPage({ user }: WithAuthProps) {
         {" "}
         {user && user.email}
         {posts.map((post: Post) => (
-          <div className="w-full max-w-lg" key={post.id}>
+          <div className="w-full max-w-3xl" key={post.id}>
             <PostCard
+              email={"awesomeuser"}
               title={post.title}
               body={post.description}
               createdAt={post.createdAt}
