@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { headers } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const header = await headers();
+  const pathname = header.get("x-pathname") || "/";
+  const showNavbar = !["/login", "/register", "/"].includes(pathname);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -30,7 +35,7 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         {" "}
-        <Navbar />
+        {showNavbar && <Navbar />}
         {children}
       </body>
     </html>

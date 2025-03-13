@@ -1,8 +1,9 @@
 "use client";
 
+import { redirect } from "next/dist/server/api-utils";
+
 const LoginButton = () => {
   const handleLogin = async () => {
-    console.log("login");
   };
 
   return (

@@ -4,8 +4,10 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export async function login(prevState: any, formData: FormData) {
+  console.log(formData)
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  console.log(email, password)
   const credentials = btoa(`${email}:${password}`);
 
   const res = await fetch(

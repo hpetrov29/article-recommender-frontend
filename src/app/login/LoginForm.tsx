@@ -3,29 +3,76 @@
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { login } from "./actions";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import Link from "next/link";
 
 export function LoginForm() {
   const [state, loginAction] = useActionState(login, undefined);
 
   return (
-    <form action={loginAction} className="flex max-w-[300px] flex-col gap-2">
-      <div className="flex flex-col gap-2">
-        <input id="email" name="email" placeholder="Email" />
-      </div>
-      {state?.errors?.email && (
-        <p className="text-red-500">{state.errors.email}</p>
-      )}
-
-      <div className="flex flex-col gap-2">
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Password"
-        />
-      </div>
-      <SubmitButton />
-    </form>
+    <Card className="w-full max-w-md">
+      <form action={loginAction}>
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
+          <CardDescription>
+            Enter your credentials to access your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Email
+            </label>
+            <Input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              className="w-full"
+            />
+            {state?.errors?.email && (
+              <p className="text-red-500">{state.errors.email}</p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Password
+            </label>
+            <Input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              className="w-full"
+            />
+          </div>
+        </CardContent>
+        <CardFooter className="flex flex-col space-y-4">
+          <SubmitButton />
+          <div className="text-sm text-center text-muted-foreground">
+            Don&apos;t have an account?{" "}
+            <Link href="/register" className="text-primary hover:underline">
+              Sign up
+            </Link>
+          </div>
+        </CardFooter>
+      </form>
+    </Card>
   );
 }
 
@@ -33,8 +80,8 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button disabled={pending} type="submit">
+    <Button disabled={pending} type="submit" className="w-full">
       {pending ? "Waiting" : "Login"}
-    </button>
+    </Button>
   );
 }

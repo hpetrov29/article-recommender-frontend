@@ -1,4 +1,6 @@
 import PostCard from "@/components/PostCard";
+import PostComposer from "@/components/PostComposer";
+import posts from "@/constants/posts";
 import { withAuth, WithAuthProps } from "@/lib/WithAuth";
 
 type Post = {
@@ -11,23 +13,23 @@ type Post = {
 };
 
 async function PostsPage({ user }: WithAuthProps) {
-  const response = await fetch("http://localhost:8000/v1/posts");
-  const res = await response.json();
-  const posts = res.payload as Post[];
+  //const response = await fetch("http://localhost:8000/v1/posts");
+  //const res = await response.json();
+  //const posts = res.payload as Post[];
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Latest Posts</h1>
       <div className="flex flex-col items-center gap-4">
-        {" "}
-        {user && user.email}
-        {posts.map((post: Post) => (
-          <div className="w-full max-w-3xl" key={post.id}>
+        <PostComposer />
+        {posts.map((post: any) => (
+          <div className="w-full max-w-xl" key={post.title}>
             <PostCard
-              email={"awesomeuser"}
+              email={post.author}
               title={post.title}
               body={post.description}
-              createdAt={post.createdAt}
+              createdAt={post.date}
+              readTime={post.readTime}
+              imageSrc={post.image}
             />
           </div>
         ))}

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const protectedRoutes = ["/posts"];
-const cantBeHereIfAuthenticated = ["/login"];
+const protectedRoutes = ["/post"];
+const cantBeHereIfAuthenticated = ["/logins"];
 const publicRoutes = ["/login"];
 
 export async function middleware(req: NextRequest) {
@@ -25,9 +25,10 @@ export async function middleware(req: NextRequest) {
       if (response.ok) {
         const user = await response.json();
         const modifiedRequest = NextResponse.next();
-
+        console.log("middleware");
         // Pass user data to the request headers
         modifiedRequest.headers.set("X-User", JSON.stringify(user.payload));
+        modifiedRequest.headers.set("x-pathname", req.nextUrl.pathname);
         if (cantBeHereIfAuthenticated.includes(nextUrl.pathname)) {
           return NextResponse.redirect(new URL("/posts", req.url));
         }
@@ -41,5 +42,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/posts/:path*", "/login"], // Apply only to protected routes
+  matcher: ["/posts/:path*", "/login", "/profile", "/settings"], // Apply only to protected routes
 };

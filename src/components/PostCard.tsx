@@ -1,7 +1,14 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { BookOpen, Star, TrendingUp } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -13,6 +20,8 @@ interface PostCardProps {
   title: string;
   body: string;
   createdAt: string;
+  readTime: string;
+  imageSrc: string;
 }
 
 const timeAgo = (timeStr: string): string => {
@@ -60,52 +69,53 @@ export default function PostCard({
   title,
   body,
   createdAt,
+  readTime,
+  imageSrc,
 }: PostCardProps) {
-  const [clicked, setClicked] = useState<boolean>(false);
   return (
-    <Card className="cursor-pointer pb-0 shadow-md border-0 rounded-xl hover:shadow-lg overflow-hidden transition-shadow duration-300 bg-white">
-      <CardHeader className="flex flex-row justify-between p-5 pb-4 space-y-0">
-        <div className="flex flex-row">
-          <Avatar className="w-9 h-9 cursor-pointer border select-none">
-            <AvatarImage
-              src="https://d2zp5xs5cp8zlg.cloudfront.net/image-85281-800.jpg"
-              alt="User Avatar"
-            />
-            <AvatarFallback>U</AvatarFallback>
+    <Card className="border-none shadow-lg hover:shadow-xl transition-shadow">
+      <CardHeader className="space-y-4">
+        <div className="flex items-center gap-2">
+          <Avatar className="h-8 w-8">
+            <AvatarFallback className="bg-primary/10">{email[0]}</AvatarFallback>
           </Avatar>
-          <p className="cursor-pointer hover:underline content-center font-medium text-base ml-2">
-            {email}
-          </p>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">{email}</span>
+            <span className="text-xs text-muted-foreground">{createdAt}</span>
+          </div>
         </div>
-        <div className="content-center">
-          <span className="text-sm text-gray-500">{timeAgo(createdAt)}</span>
+        <div className="relative h-48 w-full overflow-hidden rounded-lg">
+          <img
+            src={imageSrc}
+            alt={title}
+            className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span>{"Science"}</span>
+            <span>•</span>
+            <span>{readTime}</span>
+          </div>
+          <CardTitle className="text-xl font-bold hover:text-primary cursor-pointer">
+            {title}
+          </CardTitle>
+          <CardDescription className="line-clamp-2">{body}</CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="p-5 pt-0">
-        <div className="flex flex-row justify-between">
-          <div className="w-[32rem]">
-            <CardTitle className="text-xl font-semibold text-gray-900 mb-2">
-              {title}
-            </CardTitle>
-            <p className="max-h-[3rem] line-clamp-2 overflow-hidden whitespace-normal text-gray-700">
-              {truncateText(body)}
-            </p>
+      <CardContent>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <BookOpen className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">{readTime}</span>
           </div>
-          <div className="w-[10rem]">
-            <Image
-              src={
-                "https://t4.ftcdn.net/jpg/07/18/12/87/360_F_718128776_nJReWqPkf5qF4Y5na8ZqGWAbdCJTpczZ.jpg"
-              }
-              alt={"parrot"}
-              width={160}
-              height={106.66}
-              className="rounded-sm"
-            />
+          <div className="flex items-center gap-2">
+            <Star className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">
+              Member-only story
+            </span>
           </div>
         </div>
-        <Button className="mt-4 " onClick={() => setClicked((prev) => !prev)}>
-          {clicked ? "Clicked!" : "Read"}
-        </Button>
       </CardContent>
     </Card>
   );
