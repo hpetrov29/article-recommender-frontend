@@ -1,12 +1,5 @@
 import { withAuth, WithAuthProps } from "@/lib/WithAuth";
 import { LoginForm } from "./LoginForm";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 async function Login({ user }: WithAuthProps) {
   return (

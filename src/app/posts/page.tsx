@@ -1,5 +1,6 @@
 import PostCard from "@/components/PostCard";
 import PostComposer from "@/components/PostComposer";
+import { QuickTemplates } from "@/components/QuickTemplates";
 import posts from "@/constants/posts";
 import { withAuth, WithAuthProps } from "@/lib/WithAuth";
 
@@ -21,6 +22,7 @@ async function PostsPage({ user }: WithAuthProps) {
     <div className="container mx-auto p-6">
       <div className="flex flex-col items-center gap-4">
         <PostComposer />
+        <QuickTemplates />
         {posts.map((post: any) => (
           <div className="w-full max-w-xl" key={post.title}>
             <PostCard

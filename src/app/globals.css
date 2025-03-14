@@ -5,6 +5,7 @@
 html,
 body {
   height: 100%;
+  @apply bg-gray-50;
 }
 
 [data-scroll-locked][data-scroll-locked] {

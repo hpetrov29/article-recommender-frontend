@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { Image, Video, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Card } from "./ui/card";
 
 const PostComposer = () => {
   const [postContent, setPostContent] = useState("");
@@ -20,7 +21,7 @@ const PostComposer = () => {
   const handleSaveClick = () => {};
 
   return (
-    <div className="w-full max-w-xl mx-auto bg-white rounded-lg shadow-sm border p-4">
+    <Card className="w-full max-w-xl mx-auto bg-white rounded-lg p-4 border-none shadow-lg">
       <div className="flex gap-3 mb-1">
         <Avatar className="h-10 w-10">
           <AvatarImage
@@ -44,21 +45,21 @@ const PostComposer = () => {
                 size="icon"
                 className="h-10 w-10 rounded-full text-gray-600"
               >
-                <Image size={20} />
+                <Image className="!w-5 !h-5" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
                 className="h-10 w-10 rounded-full text-gray-600"
               >
-                <Video size={20} />
+                <Video className="!w-5 !h-5" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
                 className="h-10 w-10 rounded-full text-gray-600"
               >
-                <MoreHorizontal size={20} />
+                <MoreHorizontal className="!w-5 !h-5" />
               </Button>
             </div>
             <div className="flex gap-3">
@@ -83,7 +84,7 @@ const PostComposer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
