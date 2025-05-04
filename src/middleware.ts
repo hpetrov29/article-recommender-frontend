@@ -5,11 +5,15 @@ const cantBeHereIfAuthenticated = ["/logins"];
 const publicRoutes = ["/login"];
 
 export async function middleware(req: NextRequest) {
+  console.log("running");
   const { nextUrl, cookies } = req;
   const token = cookies.get("authCookie");
   if (!token && protectedRoutes.includes(nextUrl.pathname)) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
+
+  const modifiedRequest = NextResponse.next();
+  modifiedRequest.headers.set("x-pathname", req.nextUrl.pathname);
 
   if (token) {
     try {
@@ -24,11 +28,8 @@ export async function middleware(req: NextRequest) {
       });
       if (response.ok) {
         const user = await response.json();
-        const modifiedRequest = NextResponse.next();
-        console.log("middleware");
         // Pass user data to the request headers
         modifiedRequest.headers.set("X-User", JSON.stringify(user.payload));
-        modifiedRequest.headers.set("x-pathname", req.nextUrl.pathname);
         if (cantBeHereIfAuthenticated.includes(nextUrl.pathname)) {
           return NextResponse.redirect(new URL("/posts", req.url));
         }
@@ -38,7 +39,7 @@ export async function middleware(req: NextRequest) {
       console.error("Middleware auth error:", error);
     }
   }
-  return NextResponse.next();
+  return modifiedRequest;
 }
 
 export const config = {
