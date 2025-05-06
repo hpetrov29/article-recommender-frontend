@@ -8,13 +8,14 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BookOpen, Star, TrendingUp } from "lucide-react";
+import { BookOpen, Heart, Star, TrendingUp } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import Image from "next/image";
 import HeartIcon from "./icons/HeartIcon";
 import CommentIcon from "./icons/CommentIcon";
+import IconButton from "./buttons/IconButton";
 
 // Define the type for props
 interface PostCardProps {
@@ -71,22 +72,18 @@ export default function PostCard({
           {false && <div />}
         </div>
         <div className="h-[2rem] flex justify-start gap-2">
-          <div className="h-full">
-            <button className="group h-full flex items-center gap-[0.375rem] px-2 rounded-full select-none hover:bg-[rgba(238,238,238,1)]  transition duration-200">
+          <IconButton
+            icon={
               <HeartIcon className="w-5 h-5 stroke-[1.25] text-gray-400 group-hover:text-black transition-colors duration-200" />
-              <div className="font-normal text-[0.8125rem] leading-[1.25rem] text-gray-400 group-hover:text-black transition-colors duration-200">
-                304
-              </div>
-            </button>
-          </div>
-          <div className="h-full">
-            <button className="group h-full flex items-center gap-[0.375rem] px-2 rounded-full select-none hover:bg-[rgba(238,238,238,1)]  transition duration-200">
+            }
+            label={"304"}
+          />
+          <IconButton
+            icon={
               <CommentIcon className="w-5 h-5 stroke-[0.1] text-gray-400 group-hover:text-black transition-colors duration-200" />
-              <div className="font-normal text-[0.8125rem] leading-[1.25rem] text-gray-400 group-hover:text-black transition-colors duration-200">
-                304
-              </div>
-            </button>
-          </div>
+            }
+            label={"304"}
+          />
         </div>
       </div>
     </div>
