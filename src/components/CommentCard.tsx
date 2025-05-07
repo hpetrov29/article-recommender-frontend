@@ -18,7 +18,7 @@ interface CommentProps {
 const Comment: React.FC<CommentProps> = ({ comment, style }) => {
   const [showChildren, setShowChildren] = React.useState(true);
   return (
-    <div className="w-full max-w-2xl relative" style={style}>
+    <div className="relative w-full max-w-2xl" style={style}>
       <Card
         type="comment"
         style={{
@@ -30,7 +30,7 @@ const Comment: React.FC<CommentProps> = ({ comment, style }) => {
         <Card.Avatar />
         <Card.Content>
           <div className="flex flex-col gap-3">
-            <div className="flex flex-col gap-[0.1875rem] h-full">
+            <div className="flex h-full flex-col gap-[0.1875rem]">
               <Card.Header author="Dan Williams" time="7d" />
               {showChildren ? (
                 <Card.Body>
@@ -42,7 +42,7 @@ const Comment: React.FC<CommentProps> = ({ comment, style }) => {
                 </Card.Body>
               ) : (
                 <button
-                  className="w-fit inline-block text-sm text-gray-400 border border-gray-300 rounded-full px-2 py-1 hover:bg-[rgba(238,238,238,1)] hover:border-gray-500 hover:text-black transition-colors duration-300"
+                  className="inline-block w-fit rounded-full border border-gray-300 px-2 py-1 text-sm text-gray-400 transition-colors duration-300 hover:border-gray-500 hover:bg-[rgba(238,238,238,1)] hover:text-black"
                   onClick={() => setShowChildren(!showChildren)}
                 >
                   Show replies
@@ -53,13 +53,13 @@ const Comment: React.FC<CommentProps> = ({ comment, style }) => {
           <Card.Actions>
             <IconButton
               icon={
-                <HeartIcon className="w-5 h-5 stroke-[1.25] text-gray-400 group-hover:text-black transition-colors duration-200" />
+                <HeartIcon className="h-5 w-5 stroke-[1.25] text-gray-400 transition-colors duration-200 group-hover:text-black" />
               }
               label={"304"}
             />
             <IconButton
               icon={
-                <CommentIcon className="w-5 h-5 stroke-[0.1] text-gray-400 group-hover:text-black transition-colors duration-200" />
+                <CommentIcon className="h-5 w-5 stroke-[0.1] text-gray-400 transition-colors duration-200 group-hover:text-black" />
               }
               label={"Reply"}
             />
@@ -78,10 +78,10 @@ const Comment: React.FC<CommentProps> = ({ comment, style }) => {
       ))}
       {comment.children && comment.children.length > 0 && showChildren && (
         <div
-          className="absolute top-[3.75rem] h-[calc(100%-3.75rem)] w-[2.25rem] flex items-center justify-center group cursor-pointer"
+          className="group absolute top-[3.75rem] flex h-[calc(100%-3.75rem)] w-[2.25rem] cursor-pointer items-center justify-center"
           onClick={() => setShowChildren(!showChildren)}
         >
-          <div className="w-px h-full bg-gray-300 group-hover:bg-gray-400 transition duration-300" />
+          <div className="h-full w-px bg-gray-300 transition duration-300 group-hover:bg-gray-400" />
         </div>
       )}
     </div>
