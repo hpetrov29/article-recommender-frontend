@@ -1,6 +1,5 @@
 import React from "react";
 
-// Define types for the article block
 interface ArticleBlock {
   type: string;
   styling: string | string[];
