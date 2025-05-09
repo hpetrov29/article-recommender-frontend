@@ -10,11 +10,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import UserIcon from "./icons/UserIcon";
 import SettingsIcon from "./icons/SettingsIcon";
 import { SearchBar } from "./SearchBar";
-import { Flame } from "lucide-react";
 import LogoutDialog from "./LogoutDialog";
 import LogoutIcon from "./icons/LogoutIcon";
 

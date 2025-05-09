@@ -15,8 +15,17 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 
+type LoginState = {
+  errors?: {
+    email?: string;
+    password?: string;
+  };
+};
+
 export function LoginForm() {
-  const [state, loginAction] = useActionState(login, undefined);
+  const [state, loginAction] = useActionState<LoginState, FormData>(login, {
+    errors: {},
+  });
 
   return (
     <Card className="w-full max-w-md">
@@ -64,7 +73,7 @@ export function LoginForm() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
           <SubmitButton />
-          <div className="text-sm text-center text-muted-foreground">
+          <div className="text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
             <Link href="/register" className="text-primary hover:underline">
               Sign up

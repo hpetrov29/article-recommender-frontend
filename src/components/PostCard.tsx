@@ -15,10 +15,10 @@ const PostCard = () => {
             <div className="flex h-full flex-col gap-[0.1875rem]">
               <Card.Header author="Dan Williams" time="7d" />
               <Card.Body>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
+                {`Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
                 text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
+                of type and scrambled it to make a type specimen book.`}
               </Card.Body>
             </div>
           </div>

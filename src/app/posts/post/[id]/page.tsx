@@ -1,9 +1,31 @@
 import Article from "@/components/Article";
-import CloseIcon from "@/components/icons/CloseIcon";
+import ClosePostButton from "@/components/buttons/ClosePostButton";
 
 const articleData = {
   body: {
     blocks: [
+      {
+        type: "heading1",
+        styling: ["text-center", "font-bold", "text-4xl"],
+        content: "Hello to my blog",
+      },
+      {
+        type: "paragraph",
+        styling: ["underlined", "bold"],
+        content:
+          "Welcome to my blog where I talk about various topics! Welcome to my blog where I talk about various topics! Welcome to my blog where I talk about various topics! Welcome to my blog where I talk about various topics!",
+      },
+      {
+        type: "image",
+        styling: ["rounded", "shadow-lg"],
+        src: "https://d2zp5xs5cp8zlg.cloudfront.net/image-85281-800.jpg",
+        alt: "Placeholder image",
+      },
+      {
+        type: "paragraph",
+        styling: ["italic"],
+        content: "This is a paragraph with an image above.",
+      },
       {
         type: "heading1",
         styling: ["text-4xl", "font-bold", "text-center", "text-blue-600"],
@@ -11,12 +33,7 @@ const articleData = {
       },
       {
         type: "paragraph",
-        styling: [
-          "text-lg",
-          "text-gray-800",
-          "leading-relaxed",
-          "text-justify",
-        ],
+        styling: ["text-gray-800", "leading-relaxed", "text-justify"],
         content:
           "The ocean, covering about 71% of the Earth's surface, is one of the most fascinating and mysterious parts of our planet. It is home to countless species, some of which have yet to be discovered, and plays a crucial role in regulating the global climate.",
       },
@@ -118,11 +135,9 @@ const Post = () => {
     <div className="bg-[rgb(249, 250, 251)] flex h-full w-full items-center justify-center p-4 text-2xl font-bold text-slate-500">
       <div className="flex h-full w-full flex-col overflow-hidden rounded-2xl border bg-white px-4 shadow-md">
         <div className="flex h-[4.5rem] w-full items-center border-b py-4">
-          <button className="group flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-[0.5rem] bg-gray-200 transition duration-200 hover:bg-gray-300">
-            <CloseIcon className="h-[1rem] w-[1rem] fill-gray-600 stroke-gray-600 transition duration-200 group-hover:fill-gray-700 group-hover:stroke-gray-700" />
-          </button>
+          <ClosePostButton/>
         </div>
-        <div className="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-indigo-600 scrollbar-track-gray-100 scrollbar-thumb-hover:bg-indigo-700 flex h-full w-full flex-col overflow-auto">
+        <div className="flex h-full w-full flex-col overflow-auto scrollbar-thin scrollbar-webkit">
           <Article body={articleData.body} />
         </div>
       </div>

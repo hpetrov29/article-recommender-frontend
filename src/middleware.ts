@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const protectedRoutes = ["/post"];
 const cantBeHereIfAuthenticated = ["/logins"];
-const publicRoutes = ["/login"];
+//const publicRoutes = ["/login"];
 
 export async function middleware(req: NextRequest) {
   console.log("running");

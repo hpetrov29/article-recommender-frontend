@@ -3,11 +3,21 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-export async function login(prevState: any, formData: FormData) {
-  console.log(formData)
+type LoginState = {
+  errors?: {
+    email?: string;
+    password?: string;
+  };
+};
+
+export async function login(
+  prevState: LoginState,
+  formData: FormData,
+): Promise<LoginState> {
+  console.log(formData);
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  console.log(email, password)
+  console.log(email, password);
   const credentials = btoa(`${email}:${password}`);
 
   const res = await fetch(
@@ -18,7 +28,7 @@ export async function login(prevState: any, formData: FormData) {
         Authorization: `Basic ${credentials}`,
       },
       credentials: "include",
-    }
+    },
   );
 
   if (!res.ok) {
@@ -34,20 +44,15 @@ export async function login(prevState: any, formData: FormData) {
 
   if (setCookie) {
     const cookieStore = await cookies();
-    cookieStore.set(
-      "authCookie",
-      setCookie.split("=")[1].split(";")[0],
-      {
-        httpOnly: true,
-        secure: true,
-        path: "/",
-      }
-    );
+    cookieStore.set("authCookie", setCookie.split("=")[1].split(";")[0], {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
   }
 
   redirect("/posts");
 }
-
 export async function logout() {
   redirect("/login");
 }

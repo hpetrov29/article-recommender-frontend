@@ -4,7 +4,9 @@ import React from "react";
 interface ArticleBlock {
   type: string;
   styling: string | string[];
-  content: string;
+  src?: string | undefined;
+  alt?: string | undefined;
+  content?: string | null;
 }
 
 interface ArticleProps {
@@ -35,13 +37,30 @@ const Article: React.FC<ArticleProps> = ({ body }) => {
 
         if (type === "paragraph") {
           return (
-            <p key={index} className={"mx-auto w-[37.5rem] " + classNames}>
+            <p
+              key={index}
+              className={
+                "mx-auto w-[37.5rem] " + classNames + " text-sm font-light"
+              }
+            >
               {content}
             </p>
           );
         }
 
-        return null; // Return nothing for unsupported block types
+        if (type === "image") {
+          return (
+            <div key={index} className="image-container">
+              <img
+                src={block.src}
+                alt={block.alt || "Image"}
+                className={`max-w[37.5rem] mx-auto my-[2rem] ${classNames}`}
+              />
+            </div>
+          );
+        }
+
+        return null;
       })}
     </>
   );
