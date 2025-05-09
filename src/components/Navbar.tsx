@@ -29,21 +29,17 @@ async function Navbar() {
   const userHeader = headersList.get("X-User");
   const user = userHeader ? JSON.parse(userHeader) : null;
   return (
-    <nav className="p-2.5 bg-white shadow-sm border-b border-gray-200 text-black fixed top-0 left-0 w-full z-50">
-      <div className="flex justify-between items-center mx-auto max-w-screen-2xl w-full px-2">
-        <h1 className="text-xl">My App</h1>
+    <nav className="fixed left-[4.5rem] top-0 z-50 h-[4.5rem] w-[calc(100%-4.5rem)] border-b border-gray-200 bg-white p-2.5 text-black">
+      <div className="mx-auto flex h-full w-full max-w-screen-2xl items-center justify-between px-2">
+        <h1 className="text-xl">Home</h1>
         <div className="flex">
           <SearchBar />
-          <Button variant="ghost" size="sm" className="gap-2 hidden md:flex">
-            <Flame className="h-4 w-4 text-orange-500" />
-            <span className="hidden sm:inline">Trending</span>
-          </Button>
         </div>
         <div>
           {user ? (
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger className="focus:outline-none" asChild>
-                <Avatar className="w-9 h-9 cursor-pointer border">
+                <Avatar className="h-9 w-9 cursor-pointer border">
                   <AvatarImage
                     src="https://d2zp5xs5cp8zlg.cloudfront.net/image-85281-800.jpg"
                     alt="User Avatar"
@@ -53,7 +49,7 @@ async function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-40 mt-2 bg-white shadow-lg rounded-lg"
+                className="mt-2 w-40 rounded-lg bg-white shadow-lg"
               >
                 {menuItems.map((menuItem, id) => {
                   return menuItem.label === "Logout" ? (
@@ -61,12 +57,12 @@ async function Navbar() {
                   ) : (
                     <Link href={`/${menuItem.label.toLowerCase()}`}>
                       <DropdownMenuItem
-                        className="flex cursor-pointer hover:bg-gray-100 px-3 py-2 group"
+                        className="group flex cursor-pointer px-3 py-2 hover:bg-gray-100"
                         key={id}
                       >
-                        <menuItem.icon className="w-5 h-5 text-gray-500 group-hover:text-black transition-colors duration-500 " />
+                        <menuItem.icon className="h-5 w-5 text-gray-500 transition-colors duration-500 group-hover:text-black" />
 
-                        <span className="text-gray-700 whitespace-nowrap ml-2 group-hover:text-black transition-colors duration-500">
+                        <span className="ml-2 whitespace-nowrap text-gray-700 transition-colors duration-500 group-hover:text-black">
                           {menuItem.label}
                         </span>
                       </DropdownMenuItem>

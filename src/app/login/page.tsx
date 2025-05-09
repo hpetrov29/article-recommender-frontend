@@ -3,7 +3,7 @@ import { LoginForm } from "./LoginForm";
 
 async function Login({ user }: WithAuthProps) {
   return (
-    <div className="flex items-center justify-center bg-background h-[calc(100%-3.5rem)]">
+    <div className="flex items-center justify-center h-[calc(100%-3.5rem)]">
       <LoginForm />
     </div>
   );
