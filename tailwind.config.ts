@@ -7,6 +7,7 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: ["underline-strikethrough", "line-through", "underline"],
   theme: {
     extend: {
       colors: {
@@ -81,7 +82,14 @@ export default {
           },
         },
       };
+
       addUtilities(scrollbarUtilities, ["responsive", "hover"]);
+
+      addUtilities({
+        ".underline-strikethrough": {
+          textDecoration: "underline line-through !important",
+        },
+      });
     },
   ],
 } satisfies Config;
