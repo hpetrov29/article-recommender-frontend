@@ -57,7 +57,7 @@ export default function Editor() {
 
   function onChange(editorState: any, editor: any, selection: any) {
     const editorStateJSON = editorState.toJSON();
-    // console.log("Editor state changed!", JSON.stringify(editorStateJSON));
+    console.log("Editor state changed!", JSON.stringify(editorStateJSON));
     // However, we still have a JavaScript object, so we need to convert it to an actual string with JSON.stringify
     setEditorState(JSON.stringify(editorStateJSON));
   }
@@ -69,7 +69,7 @@ export default function Editor() {
       return editor.registerUpdateListener(({ editorState }) => {
         editorState.read(() => {
           const htmlString = $generateHtmlFromNodes(editor, null);
-          console.log(htmlString);
+          //console.log(htmlString);
         });
       });
     }, [editor]);
@@ -84,16 +84,32 @@ export default function Editor() {
   return (
     <>
       <LexicalComposer initialConfig={editorConfig}>
-        <div className="relative mx-auto my-5 max-w-4xl rounded-sm rounded-tl-sm rounded-tr-sm text-left font-normal leading-5 text-black dark:text-white">
-          <ToolbarPlugin />
-          <div className="relative dark:bg-gray-700">
-            <RichTextPlugin
-              contentEditable={
-                <ContentEditable className="relative min-h-[200px] resize-none space-x-1 px-2 py-4 text-sm caret-slate-200 outline-0" />
-              }
-              placeholder={<Placeholder />}
-              ErrorBoundary={LexicalErrorBoundary}
-            />
+        <div className="mx-auto flex-col items-center rounded-sm rounded-tl-sm rounded-tr-sm text-left font-normal leading-5 text-black dark:text-white">
+          <div className="fixed left-0 right-0 top-0 z-20 ml-[4.5rem] flex h-[4.5rem] transform items-center justify-between bg-[#ffffff] px-2 py-4 shadow">
+            <button
+              className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+              onClick={onSave}
+            >
+              Save
+            </button>
+            <ToolbarPlugin />
+            <button
+              className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+              onClick={onSave}
+            >
+              Publish
+            </button>
+          </div>
+          <div className="mt-24 flex items-center justify-center px-8">
+            <div className="relative mx-auto w-full max-w-[70rem]">
+              <RichTextPlugin
+                contentEditable={
+                  <ContentEditable className="min-h-[200px] w-full resize-none bg-white px-2 py-4 text-sm caret-black caret-slate-200 outline-none" />
+                }
+                placeholder={<Placeholder />}
+                ErrorBoundary={LexicalErrorBoundary}
+              />
+            </div>
             <HistoryPlugin />
             <AutoFocusPlugin />
             <ListPlugin />
@@ -104,12 +120,6 @@ export default function Editor() {
           </div>
         </div>
       </LexicalComposer>
-      <button
-        onClick={onSave}
-        className="bg-btn-background hover:bg-btn-background-hover rounded-md px-4 py-2 no-underline"
-      >
-        Save
-      </button>
     </>
   );
 }
